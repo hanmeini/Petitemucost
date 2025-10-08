@@ -77,6 +77,14 @@
                 </div>
             </div>
 
+            {{-- --- BAGIAN GRAFIK PENDAPATAN --- --}}
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Pendapatan DP (7 Hari Terakhir)</h3>
+                <div class="">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
             {{-- Kolom Utama untuk Booking Terbaru --}}
             <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
                 <div class="p-6">
@@ -131,5 +139,53 @@
             </div>
         </div>
     </div>
+        {{-- Script untuk Menggambar Grafik --}}
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('revenueChart');
+
+            // Pastikan elemen canvas ditemukan sebelum membuat chart
+            if (ctx) {
+                const chartLabels = @json($chartLabels);
+                const chartData = @json($chartData);
+
+                new Chart(ctx, {
+                    type: 'bar', // Tipe grafik: bar, line, pie, dll.
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'Pendapatan DP',
+                            data: chartData,
+                            backgroundColor: 'rgba(236, 72, 153, 0.2)', // Warna pink dengan transparansi
+                            borderColor: 'rgba(236, 72, 153, 1)',     // Warna pink solid
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    // Format angka di sumbu Y menjadi format Rupiah
+                                    callback: function(value, index, values) {
+                                        return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false // Sembunyikan legenda
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-admin-layout>
 

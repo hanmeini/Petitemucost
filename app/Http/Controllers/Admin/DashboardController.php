@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,10 +15,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // --- DATA UNTUK KARTU STATISTIK ---
+
         // 1. Menghitung jumlah booking baru yang menunggu konfirmasi
         $newBookingsCount = Booking::where('status', 'menunggu_konfirmasi')->count();
 
-        // 2. Menghitung jumlah booking yang menunggu pembayaran
+        // 2. Menghitung jumlah booking yang menunggu pembayaran (DP atau verifikasi)
         $pendingPaymentsCount = Booking::whereIn('status', ['menunggu_pembayaran_dp', 'menunggu_verifikasi_pembayaran'])->count();
 
         // 3. Menghitung jumlah jadwal terkonfirmasi bulan ini
@@ -35,11 +38,32 @@ class DashboardController extends Controller
                                        ->sum('dp_amount');
 
 
-        // 5. Mengambil 5 booking terbaru untuk ditampilkan di tabel
+        // --- DATA UNTUK TABEL BOOKING TERBARU ---
         $recentBookings = Booking::with(['client', 'service'])
                                  ->latest()
                                  ->take(5)
                                  ->get();
+
+
+        // --- DATA UNTUK GRAFIK PENDAPATAN ---
+        $dailyRevenue = Booking::query()
+            ->whereHas('payment', fn($q) => $q->whereNotNull('verified_at'))
+            ->whereBetween('created_at', [Carbon::now()->subDays(6), Carbon::now()])
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('sum(dp_amount) as total'))
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->pluck('total', 'date');
+
+        $chartLabels = [];
+        $chartData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::now()->subDays($i);
+            $dateString = $date->format('Y-m-d');
+
+            $chartLabels[] = $date->translatedFormat('D, d');
+            $chartData[] = $dailyRevenue[$dateString] ?? 0;
+        }
+
 
         // Mengirim semua data yang dibutuhkan ke view
         return view('admin.dashboard', compact(
@@ -47,7 +71,9 @@ class DashboardController extends Controller
             'pendingPaymentsCount',
             'confirmedBookingsCount',
             'totalRevenueMonth',
-            'recentBookings'
+            'recentBookings',
+            'chartLabels',
+            'chartData'
         ));
     }
 }
