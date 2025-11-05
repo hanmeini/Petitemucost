@@ -1,7 +1,7 @@
 <x-admin-layout>
     {{-- Header Halaman --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
@@ -12,10 +12,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
                 <!-- Kartu 1: Booking Baru -->
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <div class="bg-[#1E1E1E] border border-gray-600 text-white rounded-lg shadow-sm p-6">
                     <div class="flex flex-row items-center justify-between pb-2">
                         <h3 class="text-sm font-medium">Booking Baru</h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-white">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                             <circle cx="9" cy="7" r="4"></circle>
                             <line x1="19" x2="19" y1="8" y2="14"></line>
@@ -24,30 +24,30 @@
                     </div>
                     <div>
                         <div class="text-2xl font-bold">{{ $newBookingsCount }}</div>
-                        <p class="text-xs text-gray-500">Permintaan perlu dikonfirmasi</p>
+                        <p class="text-xs text-gray-300">Permintaan perlu dikonfirmasi</p>
                     </div>
                 </div>
 
                 <!-- Kartu 2: Menunggu Pembayaran -->
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <div class="bg-[#1E1E1E] border border-gray-600 text-white rounded-lg shadow-sm p-6">
                     <div class="flex flex-row items-center justify-between pb-2">
                         <h3 class="text-sm font-medium">Menunggu Pembayaran</h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-white">
                             <circle cx="12" cy="12" r="10"></circle>
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                     </div>
                     <div>
                         <div class="text-2xl font-bold">{{ $pendingPaymentsCount }}</div>
-                        <p class="text-xs text-gray-500">Menunggu bukti transfer atau verifikasi</p>
+                        <p class="text-xs text-gray-300">Menunggu bukti transfer atau verifikasi</p>
                     </div>
                 </div>
 
                 <!-- Kartu 3: Jadwal Terkonfirmasi -->
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <div class="bg-[#1E1E1E] border border-gray-600 text-white rounded-lg shadow-sm p-6">
                     <div class="flex flex-row items-center justify-between pb-2">
                         <h3 class="text-sm font-medium">Jadwal Terkonfirmasi (Bulan Ini)</h3>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-gray-500">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-white">
                             <path d="M8 2v4"></path>
                             <path d="M16 2v4"></path>
                             <rect width="18" height="18" x="3" y="4" rx="2"></rect>
@@ -57,57 +57,74 @@
                     </div>
                     <div>
                         <div class="text-2xl font-bold">{{ $confirmedBookingsCount }}</div>
-                        <p class="text-xs text-gray-500">Total jadwal yang sudah DP bulan ini</p>
+                        <p class="text-xs text-gray-300">Total jadwal yang sudah DP bulan ini</p>
                     </div>
                 </div>
 
                 <!-- Kartu 4: Total Pendapatan DP -->
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <div class="bg-[#1E1E1E] text-white border border-gray-600 rounded-lg shadow-sm p-6">
                     <div class="flex flex-row items-center justify-between pb-2">
                         <h3 class="text-sm font-medium">Pendapatan DP (Bulan Ini)</h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-4 w-4 text-white">
                             <line x1="12" x2="12" y1="2" y2="22"></line>
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                         </svg>
                     </div>
                     <div>
                         <div class="text-2xl font-bold">Rp {{ number_format($totalRevenueMonth, 0, ',', '.') }}</div>
-                        <p class="text-xs text-gray-500">Estimasi pendapatan dari DP terverifikasi</p>
+                        <p class="text-xs text-gray-300">Estimasi pendapatan dari DP terverifikasi</p>
                     </div>
                 </div>
             </div>
 
-            {{-- --- BAGIAN GRAFIK PENDAPATAN --- --}}
-            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Pendapatan DP (7 Hari Terakhir)</h3>
-                <div class="">
+            {{-- Grafik Pendapatan dengan Filter --}}
+            <div class="bg-[#1E1E1E] border border-gray-600 text-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Pendapatan DP</h3>
+                    {{-- TOMBOL FILTER --}}
+                    <div class="flex border rounded-lg border-gray-600">
+                        <a href="{{ route('admin.dashboard', ['range' => '7']) }}"
+                           class="px-4 py-2 text-sm font-medium rounded-lg {{ $range == '7' ? 'bg-gray-600 text-white' : 'bg-transparent transition-colors ease-in-out 3s hover:bg-gray-600' }}">
+                           7 Hari
+                        </a>
+                        <a href="{{ route('admin.dashboard', ['range' => '30']) }}"
+                           class="px-4 py-2 text-sm font-medium rounded-lg {{ $range == '30' ? 'bg-gray-600 text-white' : 'bg-transparent transition-colors ease-in-out 3s hover:bg-gray-600' }}">
+                           30 Hari
+                        </a>
+                        <a href="{{ route('admin.dashboard', ['range' => '90']) }}"
+                           class="px-4 py-2 text-sm font-medium rounded-lg {{ $range == '90' ? 'bg-gray-600 text-white' : 'bg-transparent transition-colors ease-in-out 3s hover:bg-gray-600' }}">
+                           3 Bulan
+                        </a>
+                    </div>
+                </div>
+                <div class="h-80">
                     <canvas id="revenueChart"></canvas>
                 </div>
             </div>
 
             {{-- Kolom Utama untuk Booking Terbaru --}}
-            <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div class="bg-[#1E1E1E] border border-gray-600 text-white rounded-lg shadow-sm">
                 <div class="p-6">
                     <h3 class="text-lg font-medium">Booking Terbaru</h3>
-                    <p class="text-sm text-gray-500 mb-4">
+                    <p class="text-sm text-gray-200 mb-4">
                         Berikut adalah 5 booking terakhir yang masuk ke sistem.
                     </p>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-600">
+                            <thead class="bg-[#1E1E1E] text-white">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Klien</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Layanan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Booking</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Klien</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Layanan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tanggal Booking</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-[#1E1E1E] text-white divide-y divide-gray-600">
                                 @forelse ($recentBookings as $booking)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $booking->client->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $booking->service->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($booking->booking_date)->translatedFormat('d F Y') }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">{{ $booking->client->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm ">{{ $booking->service->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm ">{{ \Carbon\Carbon::parse($booking->booking_date)->translatedFormat('d F Y') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                                         {{-- Logika warna untuk status --}}
                                         @php
@@ -178,7 +195,7 @@
                         },
                         plugins: {
                             legend: {
-                                display: false // Sembunyikan legenda
+                                display: false
                             }
                         }
                     }

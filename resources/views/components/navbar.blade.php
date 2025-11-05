@@ -9,16 +9,16 @@
 
                     {{-- Menu Navigasi (Desktop) --}}
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-pink-700 text-sm font-medium ">
+                        <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-pink-700 text-sm font-medium ">
                             Beranda
                         </a>
-                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300">
+                        <a href="services" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300">
                             Layanan
                         </a>
-                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300 ">
+                        <a href="portfolio" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300 ">
                             Portofolio
                         </a>
-                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300 ">
+                        <a href="contact" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium  hover:border-gray-300 ">
                             Kontak
                         </a>
                     </div>

@@ -23,7 +23,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('services.store') }}" method="POST">
+                    <form action="{{ route('admin.services.store') }}" method="POST">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {{-- Nama Layanan --}}
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-6 gap-4">
-                            <a href="{{ route('services.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+                            <a href="{{ route('admin.services.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
                                 Batal
                             </a>
                             <button type="submit" class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:border-indigo-700 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">

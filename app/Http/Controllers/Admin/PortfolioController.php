@@ -53,7 +53,7 @@ class PortfolioController extends Controller
             'caption' => $request->title,
         ]);
 
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio berhasil ditambahkan!');
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio berhasil ditambahkan!');
     }
 
     /**
@@ -93,6 +93,6 @@ class PortfolioController extends Controller
         // Hapus record dari database
         $portfolio->delete();
 
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio berhasil dihapus!');
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio berhasil dihapus!');
     }
 }

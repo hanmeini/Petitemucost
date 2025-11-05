@@ -1,33 +1,49 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\ServiceController;
+
+//Controller Admin
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\BookingController;
-use Illuminate\Support\Facades\Route;
+
+// Controller frontend
+use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
+use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
+use App\Http\Controllers\Frontend\ClientDashboardController;
+use App\Http\Controllers\Frontend\PaymentController;
+
 
 Route::get('/', function () {
     return view('landingpage');
-});
+})->name('home');
+Route::get('/services', [FrontendServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{service:slug}', [FrontendServiceController::class, 'show'])->name('services.show');
 
-// Rute untuk user yang sudah login
+//User Login
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard Klien
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
+    // ini HARUS di atas yang pakai {service:slug}
+Route::post('/book/store', [FrontendBookingController::class, 'store'])->name('booking.store');
+
+// baru yang ini
+Route::match(['get', 'post'], '/book/{service:slug}', [FrontendBookingController::class, 'create'])->name('booking.create');
+    Route::get('/payment/{booking}', [PaymentController::class, 'create'])->name('payment.create');
+    Route::post('/payment/{booking}', [PaymentController::class, 'store'])->name('payment.store');
 
 });
-// Grup Rute KHUSUS ADMIN
-Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::resource('/admin/services', ServiceController::class);
-    Route::resource('/admin/portfolios', PortfolioController::class);
-    Route::resource('/admin/bookings', BookingController::class);
+// Dashboard Admin
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/services', AdminServiceController::class);
+    Route::resource('/portfolios', PortfolioController::class);
+    Route::resource('/bookings', BookingController::class);
 });
 
+//Profile Routes (bisa diakses oleh Klien & Admin)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained()->onDelete('cascade');
+            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade');
             $table->unsignedInteger('amount');
-            $table->string('proof_of_payment')->nullable();
-            $table->timestamp('verified_at')->nullable();
+            $table->string('proof_of_payment'); // Path ke file gambar
+
+            // Kolom yang hilang
+            $table->timestamp('payment_date');
+            $table->timestamp('verified_at')->nullable(); // Kapan admin verifikasi
+
             $table->timestamps();
         });
     }

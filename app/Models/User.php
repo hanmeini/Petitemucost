@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Booking;
 
 class User extends Authenticatable
 {
@@ -20,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role', // Pastikan 'role' dan 'phone_number' ada di sini
         'phone_number',
     ];
 
@@ -47,12 +49,16 @@ class User extends Authenticatable
         ];
     }
 
+    // ==================================================
+    // TAMBAHKAN FUNGSI RELASI INI
+    // ==================================================
+
     /**
-     * Mendefinisikan bahwa satu User (Klien) memiliki banyak Booking.
+     * Relasi: Satu User (Klien) bisa memiliki banyak Booking.
      */
-    public function bookings()
+    public function bookings(): HasMany
     {
+        // 'client_id' adalah foreign key di tabel 'bookings'
         return $this->hasMany(Booking::class, 'client_id');
     }
 }
-

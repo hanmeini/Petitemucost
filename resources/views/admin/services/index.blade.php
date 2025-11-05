@@ -1,13 +1,13 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             {{ __('Kelola Layanan') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-[#1E1E1E] border border-gray-600 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
                     {{-- Tombol untuk Tambah Layanan Baru --}}
@@ -19,33 +19,33 @@
 
                     {{-- Tabel untuk Menampilkan Layanan --}}
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-600 text-white">
+                            <thead class="bg-[#1E1E1E]">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Layanan</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DP</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Nama Layanan</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Harga</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-mediumuppercase tracking-wider">DP</th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Aksi</span>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-[#1E1E1E] divide-y divide-gray-600 text-white">
                                 {{-- Data akan ditampilkan di sini nanti --}}
                                 @forelse ($services as $service)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm font-medium text-gray-900">{{ $service->name }}</div>
+                                            <div class="text-sm font-medium">{{ $service->name }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Rp {{ number_format($service->price, 0, ',', '.') }}</div>
+                                            <div class="text-sm ">Rp {{ number_format($service->price, 0, ',', '.') }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Rp {{ number_format($service->dp_amount, 0, ',', '.') }}</div>
+                                            <div class="text-sm ">Rp {{ number_format($service->dp_amount, 0, ',', '.') }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('services.edit', $service->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                            <form action="{{ route('services.destroy', $service->id) }}" method="POST" class="inline">
+                                        <a href="{{ route('admin.services.edit', $service->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900 ml-4" onclick="return confirm('Apakah Anda yakin ingin menghapus layanan ini?')">Hapus</button>
@@ -71,4 +71,3 @@
         </div>
     </div>
 </x-admin-layout>
-```

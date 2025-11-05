@@ -20,8 +20,14 @@ return new class extends Migration
             $table->text('location_address');
             $table->text('notes')->nullable();
 
-            // TAMBAHKAN DUA KOLOM INI
-            $table->enum('status', ['menunggu konfirmasi', 'menunggu pembayaran dp', 'terkonfirmasi', 'selesai', 'dibatalkan'])->default('menunggu konfirmasi');
+            $table->enum('status', [
+                'menunggu_konfirmasi',
+                'menunggu_pembayaran_dp',
+                'menunggu_verifikasi_pembayaran',
+                'terkonfirmasi',
+                'selesai',
+                'dibatalkan'
+            ])->default('menunggu_konfirmasi');
             $table->unsignedInteger('dp_amount');
 
             $table->timestamps();

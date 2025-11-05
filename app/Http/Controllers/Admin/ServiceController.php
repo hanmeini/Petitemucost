@@ -48,7 +48,7 @@ class ServiceController extends Controller
             'duration_minutes' => $request->duration_minutes,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Layanan berhasil ditambahkan.');
+        return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil ditambahkan.');
     }
 
     /**

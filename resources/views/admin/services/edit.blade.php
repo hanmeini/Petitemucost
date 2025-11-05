@@ -1,14 +1,14 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             {{ __('Edit Layanan') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+            <div class="bg-[#1E1E1E] border border-gray-600 text-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
 
                     {{-- Menampilkan error validasi --}}
                     @if ($errors->any())
@@ -23,10 +23,10 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('services.update', $service->id) }}" method="POST">
+                    <form action="{{ route('admin.services.update', $service->id) }}" method="POST">
                         @csrf
                         @method('PUT') {{-- Method 'PUT' khusus untuk update --}}
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
                             {{-- Nama Layanan --}}
                             <div>
                                 <x-input-label for="name" :value="__('Nama Layanan')" />
@@ -54,12 +54,12 @@
                             {{-- Deskripsi --}}
                             <div class="md:col-span-2">
                                 <x-input-label for="description" :value="__('Deskripsi')" />
-                                <textarea name="description" id="description" rows="4" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('description', $service->description) }}</textarea>
+                                <textarea name="description" id="description" rows="4" class="bg-gray-700 block mt-1 w-full border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('description', $service->description) }}</textarea>
                             </div>
                         </div>
 
                         <div class="flex items-center gap-4 justify-end mt-6">
-                            <a href="{{ route('services.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+                            <a href="{{ route('services.index') }}" class="text-sm text-red-400 transition-colors hover:text-red-500">
                                 Batal
                             </a>
                             <x-primary-button>

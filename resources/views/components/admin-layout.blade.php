@@ -18,7 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 flex">
+        <div class="min-h-screen bg-black flex">
 
             {{-- Panggil komponen sidebar --}}
             <x-admin-sidebar />
@@ -28,7 +28,7 @@
 
                 <!-- Header Halaman -->
                 @if (isset($header))
-                    <header class="bg-white shadow-sm border-b">
+                    <header class="bg-[#1E1E1E] shadow-sm border-b text-white border-gray-600">
                         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
