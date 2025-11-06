@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController
 use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
 use App\Http\Controllers\Frontend\ClientDashboardController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\PortfoliosController;
 
 
 Route::get('/', function () {
@@ -21,6 +22,7 @@ Route::get('/', function () {
 })->name('home');
 Route::get('/services', [FrontendServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{service:slug}', [FrontendServiceController::class, 'show'])->name('services.show');
+Route::get('/portfolios', [App\Http\Controllers\Frontend\PortfoliosController::class, 'index'])->name('portfolios.index');
 
 //User Login
 Route::middleware(['auth', 'verified'])->group(function () {

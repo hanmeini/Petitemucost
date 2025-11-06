@@ -1,53 +1,58 @@
 <x-main-layout>
-
-    {{-- Bagian ini akan mengisi slot utama di dalam main-layout --}}
     <div class="text-white -mt-16">
         {{-- Hero Section --}}
-        <div
-            class="relative min-h-screen flex items-center"
-            style="background: url('{{ asset('build/assets/images/jase-bloor-oCZHIa1D4EU-unsplash.jpg') }}') center center / cover no-repeat;"
-        >
-            {{-- Overlay agar teks tetap jelas --}}
-            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-white/20"></div>
-            <div class="relative w-full h-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {{-- Kiri: Penjelasan & Tombol CTA --}}
-                <div class="text-center items-center lg:text-left p-8 lg:p-20 pt-10 z-10 text-white">
-                    <h1 class="text-3xl font-extrabold tracking-tight leading-tight mb-4">
-                        Wujudkan Karakter Impianmu dengan <br> <span class="text-6xl">Pettitemucos</span>
-                    </h1>
-                    <p class="text-lg lg:text-xl text-gray-200 mb-8">
-                        Spesialis makeup cosplay dan Douyin yang mengubah imajinasi menjadi kenyataan. Cepat, detail, dan siap untuk event besarmu.
-                    </p>
-                    <a href="#" class="inline-block bg-pink-600 text-white font-bold text-lg px-8 py-3 rounded-lg hover:bg-pink-700 transition duration-300 transform hover:scale-105 mb-8">
-                        Lihat Jadwal & Layanan
-                    </a>
-                    {{-- Stats Section --}}
-                    <div class="grid grid-cols-3 gap-6 mt-8 text-center">
-                        <div class="bg-black/40 rounded-xl p-6 text-white flex flex-col items-center">
-                            <span class="text-3xl font-extrabold mb-2">100+</span>
-                            <span class="text-sm">Pelanggan Puas</span>
-                        </div>
-                        <div class="bg-black/40 rounded-xl p-6 text-white flex flex-col items-center">
-                            <span class="text-3xl font-extrabold  mb-2">100+</span>
-                            <span class="text-sm">Model Makeup</span>
-                        </div>
-                        <div class="bg-black/40 rounded-xl p-6 text-white flex flex-col items-center">
-                            <span class="text-3xl font-extrabold  mb-2">20+</span>
-                            <span class="text-sm">Model Cosplay</span>
-                        </div>
+    <section class="relative min-h-screen bg-[#0381ab] overflow-hidden">
+        <img src="build/assets/images/clouds.png" class="absolute bottom-[-150px] left-[-150px] w-[500px] h-[500px] opacity-20 z-10">
+        <img src="build/assets/images/clouds.png" class="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] opacity-30 z-10">
+        <img src="build/assets/images/clouds.png" class="absolute left-1/2 top-1/2 w-[500px] h-[500px] opacity-10 z-10">
+            <div class="absolute inset-0 z-0" aria-hidden="true">
+                @for ($i = 0; $i < 20; $i++)
+                    @php
+                        $size = rand(10, 40);
+                        $duration = rand(5, 15);
+                        $delay = rand(0, 10);
+                        $top = rand(0, 100);
+                        $left = rand(0, 100);
+                    @endphp
+                    <div class="bubble absolute bg-white rounded-full opacity-5"
+                         style="
+                            width: {{ $size }}px;
+                            height: {{ $size }}px;
+                            top: {{ $top }}%;
+                            left: {{ $left }}%;
+                            animation-duration: {{ $duration }}s;
+                            animation-delay: {{ $delay }}s;
+                         ">
                     </div>
-                </div>
-
-                {{-- Kanan: Gambar Utama --}}
-                <div class="hidden lg:flex w-full h-screen justify-end items-center relative z-10">
-                    <div class="absolute inset-0 bg-purple-500 rounded-full blur-3xl opacity-30"></div>
-                    <img src="{{ asset('build/assets/images/herobg.png') }}" alt="Contoh Makeup Cosplay" class="relative w-3/4 h-full object-cover rounded-lg shadow-2xl">
-                </div>
+                @endfor
             </div>
-        </div>
+        <div class="relative z-20 min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center justify-center">
+            <div class="pt-24 pb-12 lg:pt-0 lg:pb-0 items-start ml-20 w-full flex-col flex justify-start text-center md:text-left px-4 sm:px-6 lg:px-10">
+                <h1 class="text-4xl lg:text-5xl font-extrabold mb-4">
+                    Wujudkan Karakter Impianmu <br>
+                    <span class="text-6xl lg:text-7xl">Pettitemucos</span>
+                </h1>
+                <p class="text-lg lg:text-xl mb-8">
+                    Spesialis makeup cosplay dan Douyin yang mengubah imajinasi menjadi kenyataan. Cepat, detail, dan siap untuk event besarmu.
+                </p>
+                <a href="{{ route('services.index') }}" class="inline-block bg-white text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-sky-200/70 transition duration-300 transform hover:scale-105 shadow-lg shadow-500/30">
+                    Lihat Jadwal & Layanan
+                </a>
+            </div>
 
+            {{-- Kanan: Gambar Utama --}}
+            <div class=" w-full h-screen justify-end items-center relative flex">
+                <div class="absolute mt-10 top-1/2 left-1/2 -translate-y-1/2 -translate-x-[70%] text-[14rem] font-black text-white/80 z-0 select-none" aria-hidden="true">
+                    漢月
+                </div>
+                <img src="{{ asset('build/assets/images/herobg.png') }}" alt="Contoh Makeup Cosplay"
+                    class="relative w-3/4 h-full object-cover rounded-lg">
+            </div>
+
+        </div>
+    </section>
         {{-- Portofolio Singkat --}}
-        <div class="py-24 bg-gray-900/50">
+        <div class="py-24 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-2">Karya Terbaru Kami</h2>
                 <p class="text-center text-gray-400 mb-12">Beberapa hasil makeup yang paling disukai oleh klien kami.</p>
