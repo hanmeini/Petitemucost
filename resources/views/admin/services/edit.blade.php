@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="flex items-center gap-4 justify-end mt-6">
-                            <a href="{{ route('services.index') }}" class="text-sm text-red-400 transition-colors hover:text-red-500">
+                            <a href="{{ route('admin.services.index') }}" class="text-sm text-red-400 transition-colors hover:text-red-500">
                                 Batal
                             </a>
                             <x-primary-button>

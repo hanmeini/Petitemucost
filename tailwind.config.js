@@ -13,6 +13,15 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                hellohoney: ['hellohoney', 'sans-serif'],
+            },
+            colors: {
+                'brand-pink': '#d15b88',
+                'brand-pink-light': '#f0a7c0',
+                'brand-bg': '#fdf6f8',
+                'brand-dark': '#2d2d2d',
+                'brand-gray': '#71717a',
+                'brand-border': '#e5e7eb',
             },
         },
     },

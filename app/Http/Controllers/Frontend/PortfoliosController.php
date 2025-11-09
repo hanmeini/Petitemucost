@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio;
-use App\Models\Service; // Kita butuh Model Service
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class PortfoliosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $servicesWithPortfolios = Service::whereHas('portfolios')
-                                         ->with('portfolios')
-                                         ->get();
-                                         
-        return view('frontend.portfolios.index', compact('servicesWithPortfolios'));
+        $allServices = Service::has('portfolios')->get();
+
+        $query = Service::query();
+
+        if ($request->has('category') && $request->category != '') {
+            $query->where('slug', $request->category);
+        }
+
+        $servicesWithPortfolios = $query->whereHas('portfolios')
+                                        ->with(['portfolios' => function($q) {
+                                            $q->latest();
+                                        }])
+                                        ->get();
+
+        return view('frontend.portfolios.index', compact('servicesWithPortfolios', 'allServices'));
     }
 }

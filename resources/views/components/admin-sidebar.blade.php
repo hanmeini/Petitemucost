@@ -28,6 +28,10 @@
             {{ __('Kelola Booking') }}
         </x-nav-link>
 
+        <x-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
+            {{ __('Kelola Event') }}
+        </x-nav-link>
+
         {{-- Link menu lainnya bisa ditambahkan di sini --}}
 
     </nav>

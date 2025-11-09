@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\EventController;
+
 
 // Controller frontend
 use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
@@ -15,11 +17,10 @@ use App\Http\Controllers\Frontend\BookingController as FrontendBookingController
 use App\Http\Controllers\Frontend\ClientDashboardController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\PortfoliosController;
+use App\Http\Controllers\Frontend\LandingPageController;
 
 
-Route::get('/', function () {
-    return view('landingpage');
-})->name('home');
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 Route::get('/services', [FrontendServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{service:slug}', [FrontendServiceController::class, 'show'])->name('services.show');
 Route::get('/portfolios', [App\Http\Controllers\Frontend\PortfoliosController::class, 'index'])->name('portfolios.index');
@@ -27,11 +28,8 @@ Route::get('/portfolios', [App\Http\Controllers\Frontend\PortfoliosController::c
 //User Login
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
-    // ini HARUS di atas yang pakai {service:slug}
-Route::post('/book/store', [FrontendBookingController::class, 'store'])->name('booking.store');
-
-// baru yang ini
-Route::match(['get', 'post'], '/book/{service:slug}', [FrontendBookingController::class, 'create'])->name('booking.create');
+    Route::post('/book/store', [FrontendBookingController::class, 'store'])->name('booking.store');
+    Route::match(['get', 'post'], '/book/{service:slug}', [FrontendBookingController::class, 'create'])->name('booking.create');
     Route::get('/payment/{booking}', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/{booking}', [PaymentController::class, 'store'])->name('payment.store');
 
@@ -43,6 +41,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('/services', AdminServiceController::class);
     Route::resource('/portfolios', PortfolioController::class);
     Route::resource('/bookings', BookingController::class);
+    Route::resource('/events', EventController::class);
 });
 
 //Profile Routes (bisa diakses oleh Klien & Admin)
@@ -53,3 +52,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->time('booking_time');
             $table->text('location_address');
             $table->text('notes')->nullable();
-
             $table->enum('status', [
                 'menunggu_konfirmasi',
                 'menunggu_pembayaran_dp',

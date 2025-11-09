@@ -16,17 +16,10 @@
     </head>
     <body class="font-sans antialiased bg-gray-100">
         <div class="flex flex-col min-h-screen">
-
-            {{-- 1. Panggil Komponen Navbar di sini --}}
             <x-navbar />
-
-            {{-- 2. Konten Utama (Slot) --}}
-            {{-- Bagian ini akan diisi oleh setiap halaman yang menggunakan layout ini --}}
             <main class="flex-grow">
                 {{ $slot }}
             </main>
-
-            {{-- 3. Panggil Komponen Footer di sini --}}
             <x-footer />
 
         </div>
