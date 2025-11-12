@@ -1,10 +1,11 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky top-0 z-50">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky top-0 z-50 w-full">
     <!-- Primary Navigation Menu -->
-    <div class="mx-auto items-center justify-center max-7xl: px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="items-center justify-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex justify-between h-20">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-hellohoney tracking-wide hover:opacity-80 transition-opacity">
+                <div class="shrink-0 flex flex-row items-center gap-2 justify-center">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo Pettitemucos" class="w-10 h-10 object-cover">
+                    <a href="{{ route('home') }}" class="text-2xl font-bold">
                         Pettitemucos
                     </a>
                 </div>
@@ -90,67 +91,112 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Beranda') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">
-                {{ __('Layanan') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
-                {{ __('Portofolio') }}
-            </x-responsive-nav-link>
-        </div>
+    <!-- Latar Belakang Overlay (Saat Menu Mobile Terbuka) -->
+    <div x-show="open" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm sm:hidden" 
+         @click="open = false" 
+         style="display: none;">
+    </div>
 
-        <!-- Responsive Settings Options -->
+    <!-- Panel Sidebar Menu Mobile (Slide dari Kanan) -->
+    <div x-show="open"
+         x-transition:enter="transition ease-in-out duration-300 transform"
+         x-transition:enter-start="translate-x-full"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in-out duration-300 transform"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="translate-x-full"
+         class="fixed top-0 right-0 h-full w-80 max-w-[calc(100%-3rem)] bg-white rounded-l-3xl shadow-2xl z-50 flex flex-col"
+         @click.away="open = false"
+         style="display: none;">
+
         @auth
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            <!-- Bagian Profile (Sesuai Desain) -->
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center gap-4">
+                    <img class="h-16 w-16 rounded-full object-cover shadow-sm" 
+                         src="{{ Auth::user()->avatar ?? 'https://placehold.co/100x100/fce7f3/d15b88?text=' . strtoupper(substr(Auth::user()->name, 0, 1)) }}" 
+                         alt="Profile">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900">{{ Auth::user()->name }}</h2>
+                        <a href="{{ route('profile.edit') }}" class="text-sm text-gray-500 hover:text-pink-600 transition-colors">
+                            Lihat profile
+                        </a>
+                    </div>
                 </div>
-
-                <div class="mt-3 space-y-1">
-                    {{-- LOGIKA DASHBOARD RESPONSIF --}}
-                    @if(Auth::user()->role === 'admin')
-                        <x-responsive-nav-link :href="route('admin.dashboard')">
-                            {{ __('Admin Dashboard') }}
-                        </x-responsive-nav-link>
-                    @else
-                        <x-responsive-nav-link :href="route('dashboard')">
-                            {{ __('Dashboard Saya') }}
-                        </x-responsive-nav-link>
-                    @endif
-
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
-            </div>
-        @else
-            <div class="py-4 border-t border-gray-200 px-4 space-y-2">
-                <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2 bg-gray-50 text-gray-700 rounded-md font-semibold text-sm hover:bg-gray-100">
-                    Log in
-                </a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="block w-full text-center px-4 py-2 bg-pink-600 text-white rounded-md font-semibold text-sm hover:bg-pink-700">
-                        Register
-                    </a>
-                @endif
             </div>
         @endauth
+
+        <!-- Menu Links -->
+        <nav class="flex-grow p-6 space-y-2">
+            @auth
+                {{-- Logika Dashboard untuk User Login --}}
+                @if(Auth::user()->role === 'admin')
+                    <x-mobile-nav-link :href="route('admin.dashboard')" :icon="'grid'">
+                        Admin Dashboard
+                    </x-mobile-nav-link>
+                @else
+                    <x-mobile-nav-link :href="route('dashboard')" :icon="'grid'">
+                        Dashboard Saya
+                    </x-mobile-nav-link>
+                @endif
+                <x-mobile-nav-link :href="route('profile.edit')" :icon="'user'">
+                    Profile Saya
+                </x-mobile-nav-link>
+
+                {{-- Garis Pemisah --}}
+                <div class="pt-4 pb-2">
+                    <div class="border-t border-gray-100"></div>
+                </div>
+            @endauth
+            
+            {{-- Menu Publik --}}
+            <x-mobile-nav-link :href="route('home')" :icon="'home'">
+                Beranda
+            </x-mobile-nav-link>
+            <x-mobile-nav-link :href="route('services.index')" :icon="'sparkles'">
+                Layanan
+            </x-mobile-nav-link>
+            <x-mobile-nav-link :href="route('portfolios.index')" :icon="'image'">
+                Portofolio
+            </x-mobile-nav-link>
+            {{-- <x-mobile-nav-link :href="route('events.index')" :icon="'calendar'">
+                Jadwal Event
+            </x-mobile-nav-link> --}}
+        </nav>
+
+        <!-- Logout / Login Section -->
+        <div class="p-6 border-t border-gray-100">
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); this.closest('form').submit();"
+                       class="flex items-center gap-4 text-gray-700 hover:text-pink-600 transition-colors font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        <span class="font-medium">Log Out</span>
+                    </a>
+                </form>
+            @else
+                <div class="space-y-3">
+                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-3 bg-gray-50 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-100">
+                        Log in
+                    </a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="block w-full text-center px-4 py-3 bg-pink-600 text-white rounded-xl font-semibold text-sm hover:bg-pink-700">
+                            Register
+                        </a>
+                    @endif
+                </div>
+            @endauth
+        </div>
     </div>
 </nav>

@@ -60,4 +60,9 @@ class Booking extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function testimonial(): HasOne
+    {
+        return $this->hasOne(Testimonial::class);
+    }
 }

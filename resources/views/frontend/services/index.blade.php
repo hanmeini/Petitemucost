@@ -1,14 +1,14 @@
 <x-main-layout>
 
     <div class="bg-gray-50 min-h-screen py-12 md:py-20">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 justify-center flex flex-col">
 
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-pink-100 shadow-sm mb-8">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full justify-center self-center align-center w-max bg-white border border-pink-100 shadow-sm mb-8">
                 <span class="flex h-2 w-2 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
                 </span>
-                <span class="text-xs md:text-sm font-bold text-gray-600 uppercase tracking-widest">Galeri Kami</span>
+                <span class="text-xs md:text-sm font-bold text-gray-600 uppercase tracking-widest">Layanan</span>
             </div>
 
             {{-- Header Halaman --}}

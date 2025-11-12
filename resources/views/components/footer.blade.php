@@ -10,10 +10,10 @@
             <div class="lg:col-span-4 space-y-6">
                 <a href="/" class="flex items-center gap-2">
                     {{-- Ganti dengan logo asli jika ada --}}
-                    <div class="w-10 h-10 bg-gradient-to-tr from-pink-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        P
+                    <div class="w-20 h-20">
+                        <img src="{{ asset('images/logo.png') }}" class="w-20 h-20 object-cover" alt="logo Pettitemucos">
                     </div>
-                    <span class="text-2xl font-extrabold text-gray-900 font-hellohoney tracking-wide">Pettitemucos</span>
+                    <span class="text-2xl font-bold text-gray-900 tracking-wide">Pettitemucos</span>
                 </a>
                 <p class="text-gray-600 leading-relaxed pr-4">
                     Menghidupkan karakter impianmu lewat seni makeup yang detail dan profesional. Spesialis Cosplay & Douyin Makeup di Semarang.

@@ -24,7 +24,31 @@
     opacity: 0.3;
   }
 }
+@keyframes scroll-vertical {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+@keyframes scroll-vertical-reverse {
+    0% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
 
 .bubble {
   animation: floatPulse 8s infinite ease-in-out;
+}
+
+.animate-scroll-slow {
+    animation: scroll-vertical 40s linear infinite;
+}
+
+.animate-scroll-fast {
+    animation: scroll-vertical-reverse 30s linear infinite;
 }

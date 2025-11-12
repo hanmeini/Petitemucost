@@ -1,5 +1,5 @@
-<x-app-layout> {{-- Menggunakan layout standar Breeze/app --}}
-    <x-slot name="header">
+{{-- <x-main-layout> {{-- Menggunakan layout standar Breeze/app --}}
+{{--    <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Riwayat Booking Saya') }}
         </h2>
@@ -85,4 +85,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-main-layout> --}}

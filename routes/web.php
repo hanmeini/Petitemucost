@@ -18,6 +18,13 @@ use App\Http\Controllers\Frontend\ClientDashboardController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\PortfoliosController;
 use App\Http\Controllers\Frontend\LandingPageController;
+use App\Http\Controllers\Auth\GoogleLoginController;
+use App\Http\Controllers\Frontend\TestimonialController;
+
+
+// Rute untuk Login Google
+Route::get('/auth/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
 
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
@@ -32,6 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['get', 'post'], '/book/{service:slug}', [FrontendBookingController::class, 'create'])->name('booking.create');
     Route::get('/payment/{booking}', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/{booking}', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/testimonial/{booking}/create', [TestimonialController::class, 'create'])->name('testimonial.create');
+    Route::post('/testimonial/{booking}', [TestimonialController::class, 'store'])->name('testimonial.store');
 
 });
 

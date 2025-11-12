@@ -20,9 +20,6 @@
                     <span class="text-xs md:text-sm font-bold text-gray-600 uppercase tracking-widest">Galeri Kami</span>
                 </div>
 
-                {{-- ========================================= --}}
-                {{-- FILTER KATEGORI (BAGIAN BARU) --}}
-                {{-- ========================================= --}}
                 <div class="flex flex-wrap justify-center gap-3">
                     {{-- Tombol 'Semua' --}}
                     <a href="{{ route('portfolios.index') }}"

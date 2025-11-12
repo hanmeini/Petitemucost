@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedTinyInteger('rating');
             $table->text('comment');
             $table->boolean('is_featured')->default(false);
-
             $table->timestamps();
         });
     }
