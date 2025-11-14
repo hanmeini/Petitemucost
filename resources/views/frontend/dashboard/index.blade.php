@@ -2,10 +2,10 @@
 
     <div class="bg-gray-50 min-h-screen">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-            
+
             {{-- Header --}}
             <div class="mb-8">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+                <h1 class="text-xl md:text-4xl font-extrabold text-gray-900 mb-2">
                     Riwayat Booking Saya
                 </h1>
                 <p class="text-lg text-gray-500">
@@ -26,32 +26,32 @@
             @endif
 
             {{-- Navigasi Tab (Sesuai Desain) --}}
-            <nav class="flex space-x-6 border-b border-gray-200 mb-8">
+            <nav class="flex space-x-2 border-b border-gray-200 mb-8">
                 <a href="{{ route('dashboard', ['tab' => 'all']) }}"
                    class="py-3 px-1 text-base font-semibold transition-colors duration-200
-                          {{ $activeTab == 'all' 
-                             ? 'border-b-2 border-pink-600 text-pink-600' 
+                          {{ $activeTab == 'all'
+                             ? 'border-b-2 border-pink-600 text-pink-600'
                              : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     Semua
                 </a>
                 <a href="{{ route('dashboard', ['tab' => 'upcoming']) }}"
                    class="py-3 px-1 text-base font-semibold transition-colors duration-200
-                          {{ $activeTab == 'upcoming' 
-                             ? 'border-b-2 border-pink-600 text-pink-600' 
+                          {{ $activeTab == 'upcoming'
+                             ? 'border-b-2 border-pink-600 text-pink-600'
                              : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     Terkonfirmasi
                 </a>
                 <a href="{{ route('dashboard', ['tab' => 'pending']) }}"
                    class="py-3 px-1 text-base font-semibold transition-colors duration-200
-                          {{ $activeTab == 'pending' 
-                             ? 'border-b-2 border-pink-600 text-pink-600' 
+                          {{ $activeTab == 'pending'
+                             ? 'border-b-2 border-pink-600 text-pink-600'
                              : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     Menunggu Konfirmasi
                 </a>
                 <a href="{{ route('dashboard', ['tab' => 'history']) }}"
                    class="py-3 px-1 text-base font-semibold transition-colors duration-200
-                          {{ $activeTab == 'history' 
-                             ? 'border-b-2 border-pink-600 text-pink-600' 
+                          {{ $activeTab == 'history'
+                             ? 'border-b-2 border-pink-600 text-pink-600'
                              : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     Selesai
                 </a>
@@ -66,7 +66,7 @@
                             <div class="flex-1 mb-4 sm:mb-0">
                                 <p class="text-sm text-gray-500 mb-1">Session with</p>
                                 <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $booking->service->name }}</h3>
-                                
+
                                 <div class="flex items-center gap-4 text-sm text-gray-600 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
                                     <span>{{ $booking->booking_date->format('l, d F Y') }}</span>
@@ -76,7 +76,7 @@
                                     <span>{{ \Carbon\Carbon::parse($booking->booking_time)->format('H:i') }} (Durasi: ±{{ $booking->service->duration_minutes }} Mnt)</span>
                                 </div>
                             </div>
-                            
+
                             {{-- Info Kanan (Status & Aksi) --}}
                             <div class="flex-shrink-0 flex flex-col items-start sm:items-end justify-between">
                                 {{-- Label Status --}}
@@ -108,7 +108,7 @@
                                         </a>
                                     @elseif ($booking->status == 'terkonfirmasi')
                                         <p class="text-sm font-medium text-green-600">Booking Terkonfirmasi</p>
-                                    
+
                                     {{-- INI LOGIKA BARUNYA --}}
                                     @elseif ($booking->status == 'selesai')
                                         @if ($booking->testimonial)
@@ -122,7 +122,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                                             </a>
                                         @endif
-                                    
+
                                     @else
                                         <span class="text-sm text-gray-400">Tidak ada aksi</span>
                                     @endif

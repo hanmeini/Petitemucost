@@ -147,8 +147,8 @@ class BookingController extends Controller
                 'available' => $isAvailable
             ];
 
-            // Maju ke slot berikutnya (interval 30 menit)
-            $currentSlot->addMinutes(30);
+            // Maju ke slot berikutnya (interval 60 menit)
+            $currentSlot->addMinutes(60);
         }
 
         return $availableSlots;

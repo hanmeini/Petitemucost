@@ -37,4 +37,9 @@ class Testimonial extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+
+    // public function services()
+    // {
+    //     return $this->belongsTo(Service::class);
+    // }
 }

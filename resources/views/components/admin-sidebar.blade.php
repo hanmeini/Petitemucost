@@ -32,11 +32,10 @@
             {{ __('Kelola Event') }}
         </x-nav-link>
 
-        {{-- Link menu lainnya bisa ditambahkan di sini --}}
-
+        <x-nav-link :href="route('admin.testimonials.index')" :active="request()->routeIs('admin.testimonials.*')">
+            {{ __('Kelola Testimoni') }}
+        </x-nav-link>
     </nav>
-
-    <!-- Bagian Bawah Sidebar (Contoh: Logout) -->
     <div class="p-4 border-t border-gray-700">
         <form method="POST" action="{{ route('logout') }}">
             @csrf

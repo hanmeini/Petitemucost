@@ -669,8 +669,9 @@
         </div>
     </section>
 
-    <section class="py-20 bg-white text-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-white text-gray-900 relative overflow-hidden">
+        <div class="absolute w-64 bg-white z-10 h-64 border top-0 left-0 rotate-45"></div>
+        <div class="max-w-7xl z-20 mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold">Apa Kata Klien Kami?</h2>
             </div>

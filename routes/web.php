@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 
 
 // Controller frontend
@@ -20,6 +21,7 @@ use App\Http\Controllers\Frontend\PortfoliosController;
 use App\Http\Controllers\Frontend\LandingPageController;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Frontend\TestimonialController;
+use App\Http\Controllers\Frontend\NotificationController;
 
 
 // Rute untuk Login Google
@@ -41,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/payment/{booking}', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/testimonial/{booking}/create', [TestimonialController::class, 'create'])->name('testimonial.create');
     Route::post('/testimonial/{booking}', [TestimonialController::class, 'store'])->name('testimonial.store');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
 });
 
@@ -51,6 +54,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('/portfolios', PortfolioController::class);
     Route::resource('/bookings', BookingController::class);
     Route::resource('/events', EventController::class);
+    Route::resource('/testimonials', AdminTestimonialController::class)->only([
+        'index', 'update', 'destroy'
+    ]);
 });
 
 //Profile Routes (bisa diakses oleh Klien & Admin)
@@ -60,5 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
 require __DIR__.'/auth.php';
 

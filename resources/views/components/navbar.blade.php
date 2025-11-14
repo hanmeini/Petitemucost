@@ -21,11 +21,27 @@
                     <a href="{{ route('portfolios.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('portfolios.*') ? 'border-indigo-400 text-gray-900' : 'border-transparent text-gray-500' }} hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 text-sm font-medium leading-5 transition duration-150 ease-in-out">
                         {{ __('Portofolio') }}
                     </a>
-                    {{-- Tambahkan link lain jika ada, misal: Tentang Kami, Kontak --}}
                 </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @auth
+                    @if(Auth::user()->role == 'client')
+                    <a href="{{ route('notifications.index') }}" class="relative p-2 mr-3 text-gray-500 hover:text-pink-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+
+                        {{-- Lingkaran Notifikasi --}}
+                        @if($unreadNotificationsCount > 0)
+                            <span class="absolute top-1 right-1 flex h-4 w-4">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                                <span class="relative inline-flex items-center justify-center rounded-full h-4 w-4 bg-pink-500 text-white text-[10px] font-bold">
+                                    {{ $unreadNotificationsCount }}
+                                </span>
+                            </span>
+                        @endif
+                    </a>
+                    @endif
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -79,8 +95,27 @@
                 @endauth
             </div>
 
-            <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
+                @auth
+                    {{-- Lonceng Notifikasi (HANYA MOBILE) --}}
+                    @if(Auth::user()->role == 'client')
+                    <a href="{{ route('notifications.index') }}" class="relative p-2 mr-1 text-gray-500 hover:text-pink-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+
+                        @if($unreadNotificationsCount > 0)
+                            <span class="absolute top-1 right-1 flex h-4 w-4">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                                <span class="relative inline-flex items-center justify-center rounded-full h-4 w-4 bg-pink-500 text-white text-[10px] font-bold">
+                                    {{ $unreadNotificationsCount }}
+                                </span>
+                            </span>
+                        @endif
+                    </a>
+                    @endif
+                @endauth
+
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -92,15 +127,15 @@
     </div>
 
     <!-- Latar Belakang Overlay (Saat Menu Mobile Terbuka) -->
-    <div x-show="open" 
+    <div x-show="open"
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm sm:hidden" 
-         @click="open = false" 
+         class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm sm:hidden"
+         @click="open = false"
          style="display: none;">
     </div>
 
@@ -120,8 +155,8 @@
             <!-- Bagian Profile (Sesuai Desain) -->
             <div class="p-6 border-b border-gray-100">
                 <div class="flex items-center gap-4">
-                    <img class="h-16 w-16 rounded-full object-cover shadow-sm" 
-                         src="{{ Auth::user()->avatar ?? 'https://placehold.co/100x100/fce7f3/d15b88?text=' . strtoupper(substr(Auth::user()->name, 0, 1)) }}" 
+                    <img class="h-16 w-16 rounded-full object-cover shadow-sm"
+                         src="{{ Auth::user()->avatar ?? 'https://placehold.co/100x100/fce7f3/d15b88?text=' . strtoupper(substr(Auth::user()->name, 0, 1)) }}"
                          alt="Profile">
                     <div>
                         <h2 class="text-lg font-bold text-gray-900">{{ Auth::user()->name }}</h2>
@@ -149,13 +184,22 @@
                 <x-mobile-nav-link :href="route('profile.edit')" :icon="'user'">
                     Profile Saya
                 </x-mobile-nav-link>
-
-                {{-- Garis Pemisah --}}
+                @if(Auth::user()->role == 'client')
+                    <x-mobile-nav-link :href="route('notifications.index')" class="flex items-center relative text-sm text-gray-600 hover:text-pink-600 mt-5 p-3 rounded-lg">
+                        @if($unreadNotificationsCount > 0)
+                            <span class="absolute left-7 top-0 w-5 h-5 bg-pink-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                                {{ $unreadNotificationsCount }}
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                            </span>
+                        @endif
+                        <span class="font-medium">Notifikasi</span>
+                    </x-mobile-nav-link>
+                @endif
                 <div class="pt-4 pb-2">
                     <div class="border-t border-gray-100"></div>
                 </div>
             @endauth
-            
+
             {{-- Menu Publik --}}
             <x-mobile-nav-link :href="route('home')" :icon="'home'">
                 Beranda
@@ -166,9 +210,6 @@
             <x-mobile-nav-link :href="route('portfolios.index')" :icon="'image'">
                 Portofolio
             </x-mobile-nav-link>
-            {{-- <x-mobile-nav-link :href="route('events.index')" :icon="'calendar'">
-                Jadwal Event
-            </x-mobile-nav-link> --}}
         </nav>
 
         <!-- Logout / Login Section -->

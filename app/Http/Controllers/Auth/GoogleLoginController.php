@@ -25,7 +25,7 @@ class GoogleLoginController extends Controller
             $googleUser = Socialite::driver('google')->user();
 
             // Cari user berdasarkan google_id
-            $user = User::where('google_id', $googleUser->getId())->first(); // Kakak sudah benar di sini
+            $user = User::where('google_id', $googleUser->getId())->first();
 
             if ($user) {
                 Auth::login($user);

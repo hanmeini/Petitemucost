@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Payment;
-use Illuminate\Http\Request; // <-- TAMBAHKAN INI
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Notification;
 
 class BookingController extends Controller
 {
     /**
      * Menampilkan daftar semua booking, dengan filter dan sortir.
      */
-    public function index(Request $request) // <-- TAMBAHKAN Request $request
+    public function index(Request $request)
     {
-        // Mulai query
         $query = Booking::with(['client', 'service', 'payment']);
 
         // 1. Terapkan filter status jika ada
@@ -24,9 +24,6 @@ class BookingController extends Controller
         }
 
         // 2. Terapkan sortir default:
-        // Urutkan berdasarkan "menunggu_konfirmasi" dulu,
-        // lalu "menunggu_verifikasi_pembayaran",
-        // baru sisanya diurutkan berdasarkan yang terbaru.
         $query->orderByRaw("
             CASE
                 WHEN status = 'menunggu_konfirmasi' THEN 1
@@ -34,15 +31,12 @@ class BookingController extends Controller
                 ELSE 3
             END ASC
         ")
-        ->latest(); // latest() = orderBy('created_at', 'DESC')
-
-        // Ambil data dengan paginasi
-        // withQueryString() penting agar filter tetap ada saat pindah halaman
+        ->latest();
         $bookings = $query->paginate(15)->withQueryString();
 
         return view('admin.bookings.index', [
             'bookings' => $bookings,
-            'currentStatus' => $request->status // Kirim status filter ke view
+            'currentStatus' => $request->status
         ]);
     }
 
@@ -74,12 +68,19 @@ class BookingController extends Controller
             // Aksi saat status 'menunggu_konfirmasi'
             case 'confirm':
                 $booking->status = 'menunggu_pembayaran_dp';
-                // TODO: Kirim notifikasi ke klien
+                Notification::create([
+                    'user_id' => $booking->client_id,
+                    'message' => "Hore! Booking #{$booking->id} ({$booking->service->name}) telah dikonfirmasi!",
+                    'url' => route('dashboard', ['tab' => 'pending']),]);
                 break;
 
             case 'reject':
                 $booking->status = 'dibatalkan';
-                // TODO: Kirim notifikasi ke klien
+                Notification::create([
+                    'user_id' => $booking->client_id,
+                    'message' => "Yah 😥 Booking #{$booking->id} ({$booking->service->name}) ditolak.",
+                    'url' => route('dashboard', ['tab' => 'history']),
+                ]);
                 break;
 
             // Aksi saat status 'menunggu_verifikasi_pembayaran'
@@ -88,6 +89,11 @@ class BookingController extends Controller
                     $booking->payment->update(['verified_at' => now()]);
                     $booking->status = 'terkonfirmasi';
                     $message = 'Pembayaran berhasil diverifikasi.';
+                    Notification::create([
+                        'user_id' => $booking->client_id,
+                        'message' => "Pembayaran DP untuk Booking #{$booking->id} telah diterima!",
+                        'url' => route('dashboard', ['tab' => 'upcoming']),
+                    ]);
                 } else {
                     $message = 'Gagal, data pembayaran tidak ditemukan.';
                 }
@@ -96,7 +102,11 @@ class BookingController extends Controller
             // Aksi saat status 'terkonfirmasi'
             case 'mark_completed':
                 $booking->status = 'selesai';
-                // TODO: Aktifkan fitur testimoni untuk klien
+                Notification::create([
+                    'user_id' => $booking->client_id,
+                    'message' => "Booking #{$booking->id} telah selesai. Terima kasih! Yuk, beri ulasan...",
+                    'url' => route('testimonial.create', $booking->id),
+                ]);
                 break;
         }
 
@@ -110,13 +120,17 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        // Hapus pembayaran terkait jika ada
         if ($booking->payment) {
             Storage::disk('public')->delete($booking->payment->proof_of_payment);
             $booking->payment->delete();
         }
+        if ($booking->testimonial) {
+            $booking->testimonial->delete();
+        }
+        Notification::where('url', 'like', '%booking%'.$booking->id.'%')->delete();
+
         $booking->delete();
 
-        return redirect()->route('bookings.index')->with('success', 'Booking berhasil dihapus permanen.');
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking berhasil dihapus permanen.');
     }
 }

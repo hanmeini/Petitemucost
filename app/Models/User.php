@@ -58,7 +58,10 @@ class User extends Authenticatable
      */
     public function bookings(): HasMany
     {
-        // 'client_id' adalah foreign key di tabel 'bookings'
         return $this->hasMany(Booking::class, 'client_id');
+    }
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
     }
 }
