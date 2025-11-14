@@ -32,7 +32,7 @@ class BookingController extends Controller
             END ASC
         ")
         ->latest();
-        $bookings = $query->paginate(15)->withQueryString();
+        $bookings = $query->paginate(20)->withQueryString();
 
         return view('admin.bookings.index', [
             'bookings' => $bookings,

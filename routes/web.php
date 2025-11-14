@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
+//Auth
+use App\Http\Controllers\Auth\GoogleLoginController;
+use App\Http\Controllers\Auth\AuthController;
+
 //Controller Admin
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -19,7 +23,6 @@ use App\Http\Controllers\Frontend\ClientDashboardController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\PortfoliosController;
 use App\Http\Controllers\Frontend\LandingPageController;
-use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Frontend\TestimonialController;
 use App\Http\Controllers\Frontend\NotificationController;
 
@@ -27,6 +30,13 @@ use App\Http\Controllers\Frontend\NotificationController;
 // Rute untuk Login Google
 Route::get('/auth/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+
+// Auth Routes (Pengganti Breeze)
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/', [LandingPageController::class, 'index'])->name('home');

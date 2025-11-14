@@ -16,17 +16,8 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="w-full h-screen grid grid-cols-1 lg:grid-cols-2">
-
-            {{-- ====================================== --}}
-            {{-- === BAGIAN KIRI (BACKGROUND ANIMASI) === --}}
-            {{-- ====================================== --}}
             <div class="hidden lg:block relative h-screen overflow-hidden">
-
-                {{-- Kontainer untuk kolom-kolom gambar --}}
                 <div class="absolute inset-0 flex -z-10">
-
-                    {{-- Fungsi looping ini PENTING! --}}
-                    {{-- Kita perlu menduplikasi gambar di setiap kolom agar scroll-nya terlihat 'infinite' --}}
                     @php
                         $imagesCol1 = [
                             'img1.png',
@@ -50,28 +41,28 @@
 
                     {{-- Kolom 1 (Scroll Lambat) --}}
                     <div class="flex flex-col w-1/3 animate-scroll-slow">
-                        @foreach (array_merge($imagesCol1, $imagesCol1) as $img) {{-- Duplikasi array --}}
+                        @foreach (array_merge($imagesCol1, $imagesCol1) as $img)
                             <img src="{{ asset('images/cosplay/' . $img) }}" alt="Foto Cosplay" class="w-full h-auto object-cover">
                         @endforeach
                     </div>
 
                     {{-- Kolom 2 (Scroll Cepat - Arah Berbeda) --}}
                     <div class="flex flex-col w-1/3 animate-scroll-fast">
-                        @foreach (array_merge($imagesCol2, $imagesCol2) as $img) {{-- Duplikasi array --}}
+                        @foreach (array_merge($imagesCol2, $imagesCol2) as $img)
                             <img src="{{ asset('images/cosplay/' . $img) }}" alt="Foto Cosplay" class="w-full h-auto object-cover">
                         @endforeach
                     </div>
 
                     {{-- Kolom 3 (Scroll Lambat) --}}
                     <div class="flex flex-col w-1/3 animate-scroll-slow">
-                        @foreach (array_merge($imagesCol3, $imagesCol3) as $img) {{-- Duplikasi array --}}
+                        @foreach (array_merge($imagesCol3, $imagesCol3) as $img)
                             <img src="{{ asset('images/cosplay/' . $img) }}" alt="Foto Cosplay" class="w-full h-auto object-cover">
                         @endforeach
                     </div>
 
                 </div>
 
-                {{-- Overlay & Teks (Sama seperti kode Kakak) --}}
+                {{-- Overlay & Teks --}}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30 flex flex-col justify-end p-12 text-white">
                     <div class="mb-10">
                         <h1 class="text-5xl font-extrabold mb-4 font-hellohoney tracking-wide">Pettitemucos</h1>
@@ -82,10 +73,7 @@
                 </div>
             </div>
 
-
-            {{-- ====================================== --}}
             {{-- === BAGIAN KANAN (FORM LOGIN/REGISTER) === --}}
-            {{-- ====================================== --}}
             <div class="relative h-screen flex flex-col justify-center items-center p-6
                         lg:bg-white">
                 <div class="absolute inset-0 flex -z-10 overflow-hidden lg:hidden">

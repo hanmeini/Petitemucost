@@ -6,6 +6,7 @@
     use Illuminate\Support\Facades\View;
     use App\View\Composers\NotificationComposer;
     use Illuminate\Pagination\Paginator;
+    use App\View\Composers\AdminSidebarComposer;
 
     class AppServiceProvider extends ServiceProvider
     {
@@ -24,5 +25,8 @@
         {
             Paginator::useBootstrapFive();
             View::composer('components.navbar', NotificationComposer::class);
+
+            //Admin Notification
+            View::composer('components.admin-sidebar', AdminSidebarComposer::class);
         }
     }

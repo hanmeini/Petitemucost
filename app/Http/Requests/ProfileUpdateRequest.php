@@ -25,6 +25,18 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'phone_number' => ['nullable', 'string', 'max:20'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'phone_number.regex' => 'Format nomor telepon tidak valid. Harap gunakan format 08... (10-14 digit).',
+            'avatar.image' => 'File yang diunggah harus berupa gambar.',
+            'avatar.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
+            'avatar.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
         ];
     }
 }
