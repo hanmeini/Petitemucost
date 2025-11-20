@@ -5,8 +5,9 @@
     use Illuminate\Support\ServiceProvider;
     use Illuminate\Support\Facades\View;
     use App\View\Composers\NotificationComposer;
-    use Illuminate\Pagination\Paginator;
     use App\View\Composers\AdminSidebarComposer;
+    use Illuminate\Pagination\Paginator;
+    use Illuminate\Support\Facades\URL;
 
     class AppServiceProvider extends ServiceProvider
     {
@@ -15,7 +16,7 @@
          */
         public function register(): void
         {
-            //
+            // URL::forceScheme('https');
         }
 
         /**
@@ -23,7 +24,7 @@
          */
         public function boot(): void
         {
-            Paginator::useBootstrapFive();
+            // Paginator::useBootstrapFive();
             View::composer('components.navbar', NotificationComposer::class);
 
             //Admin Notification

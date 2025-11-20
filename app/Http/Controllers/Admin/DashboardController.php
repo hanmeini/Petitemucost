@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -12,62 +13,76 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // --- DATA UNTUK KARTU STATISTIK (Tetap sama) ---
-        $newBookingsCount = Booking::where('status', 'menunggu_konfirmasi')->count();
-        $pendingPaymentsCount = Booking::whereIn('status', ['menunggu_pembayaran_dp', 'menunggu_verifikasi_pembayaran'])->count();
-        $confirmedBookingsCount = Booking::where('status', 'terkonfirmasi')->whereMonth('booking_date', Carbon::now()->month)->count();
-        $totalRevenueMonth = Booking::whereHas('payment', fn($q) => $q->whereNotNull('verified_at'))->whereMonth('booking_date', Carbon::now()->month)->sum('dp_amount');
-        $recentBookings = Booking::with(['client', 'service'])->latest()->take(5)->get();
+        // --- 1. DATA KARTU STATISTIK (Global) ---
+        $totalBooking = Booking::count();
+        $confirmedCount = Booking::where('status', 'terkonfirmasi')->count();
+        $clientCount = User::where('role', 'client')->count();
 
-        // --- LOGIKA DINAMIS UNTUK GRAFIK ---
-        $range = $request->query('range', '7'); // Default 7 hari jika tidak ada parameter
-        $chartLabels = [];
-        $chartData = [];
+        // Total Pendapatan (Semua waktu)
+        $totalRevenue = Booking::whereHas('payment', fn($q) => $q->whereNotNull('verified_at'))
+                                ->sum('dp_amount');
 
-        $query = Booking::query()
+        // --- 2. DATA GRAFIK STATUS (Donut Chart) ---
+        $pending = Booking::whereIn('status', ['menunggu_konfirmasi', 'menunggu_pembayaran_dp', 'menunggu_verifikasi_pembayaran'])->count();
+        $active = Booking::where('status', 'terkonfirmasi')->count();
+        $rejected = Booking::where('status', 'dibatalkan')->count();
+        $finished = Booking::where('status', 'selesai')->count();
+
+        $dataStatus = [$pending, $active, $rejected, $finished];
+        $labelStatus = ['Pending', 'Terkonfirmasi', 'Dibatalkan', 'Selesai'];
+
+        // --- 3. DATA GRAFIK PENDAPATAN (Line Chart dengan Filter) ---
+
+        // Ambil range dari URL, default ke '7' hari
+        $range = $request->query('range', '7');
+
+        $days = match($range) {
+            '30' => 30,
+            '90' => 90,
+            default => 7,
+        };
+
+        // Hitung tanggal mulai (H-Sekian hari)
+        $startDate = Carbon::now()->subDays($days - 1)->startOfDay();
+        $endDate = Carbon::now()->endOfDay();
+
+        // Ambil data pendapatan per hari dari database
+        $dailyRevenue = Booking::query()
             ->whereHas('payment', fn($q) => $q->whereNotNull('verified_at'))
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('sum(dp_amount) as total'))
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('sum(dp_amount) as total')
+            )
             ->groupBy('date')
-            ->orderBy('date', 'ASC');
+            ->pluck('total', 'date');
 
-        switch ($range) {
-            case '30':
-                $startDate = Carbon::now()->subDays(29);
-                $endDate = Carbon::now();
-                $query->whereBetween('created_at', [$startDate, $endDate]);
-                $dailyRevenue = $query->pluck('total', 'date');
-                for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-                    $chartLabels[] = $date->translatedFormat('d M');
-                    $chartData[] = $dailyRevenue[$date->format('Y-m-d')] ?? 0;
-                }
-                break;
+        // Siapkan array untuk Chart.js
+        $chartPendapatanValues = [];
+        $chartLabels = [];
 
-            case '90': // Mengganti 'month' menjadi '90'
-                $startDate = Carbon::now()->subDays(89);
-                $endDate = Carbon::now();
-                $query->whereBetween('created_at', [$startDate, $endDate]);
-                $dailyRevenue = $query->pluck('total', 'date');
-                for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-                    $chartLabels[] = $date->translatedFormat('d M');
-                    $chartData[] = $dailyRevenue[$date->format('Y-m-d')] ?? 0;
-                }
-                break;
+        // Loop dari tanggal mulai sampai hari ini (agar tanggal yang 0 tetap muncul)
+        for ($i = $days - 1; $i >= 0; $i--) {
+            $date = Carbon::now()->subDays($i);
+            $dateString = $date->format('Y-m-d');
 
-            default: // Case '7'
-                $startDate = Carbon::now()->subDays(6);
-                $endDate = Carbon::now();
-                $query->whereBetween('created_at', [$startDate, $endDate]);
-                $dailyRevenue = $query->pluck('total', 'date');
-                for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-                    $chartLabels[] = $date->translatedFormat('D, d');
-                    $chartData[] = $dailyRevenue[$date->format('Y-m-d')] ?? 0;
-                }
-                break;
+            // Format Label: "12 Nov"
+            $chartLabels[] = $date->translatedFormat('d M');
+
+            // Isi Data: Ambil dari query, kalau tidak ada isi 0
+            $chartPendapatanValues[] = $dailyRevenue[$dateString] ?? 0;
         }
 
         return view('admin.dashboard', compact(
-            'newBookingsCount', 'pendingPaymentsCount', 'confirmedBookingsCount', 'totalRevenueMonth', 'recentBookings',
-            'chartLabels', 'chartData', 'range'
+            'totalBooking',
+            'confirmedCount',
+            'clientCount',
+            'totalRevenue',
+            'chartPendapatanValues',
+            'chartLabels',
+            'dataStatus',
+            'labelStatus',
+            'range'
         ));
     }
 }
