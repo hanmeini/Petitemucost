@@ -19,6 +19,7 @@ jobs:
           script: |
             export PATH=$PATH:/usr/local/bin:~/.nvm/versions/node/$(ls ~/.nvm/versions/node 2>/dev/null | tail -n 1)/bin
             cd /www/wwwroot/petitemucost.hanmeini.my.id
+            git config --global --add safe.directory /www/wwwroot/petitemucost.hanmeini.my.id
             git pull origin ${{ github.ref_name }}
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
