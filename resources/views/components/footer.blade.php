@@ -64,11 +64,11 @@
                     </li>
                     <li class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                        <a href="mailto:hello@pettitemucos.com" class="hover:text-pink-600 transition-colors">hello@pettitemucos.com</a>
+                        <a href="mailto:email@example.com" class="hover:text-pink-600 transition-colors">[Email Klien]</a>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                        <a href="https://wa.me/6281234567890" class="hover:text-pink-600 transition-colors">+62 812 3456 7890</a>
+                        <a href="https://wa.me/628000000000" class="hover:text-pink-600 transition-colors">[Nomor WA Klien]</a>
                     </li>
                 </ul>
             </div>
@@ -78,7 +78,7 @@
         {{-- Copyright Bar --}}
         <div class="pt-8 mt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
             <p class="text-sm text-gray-500 text-center md:text-left">
-                &copy; {{ date('Y') }} <span class="font-semibold text-pink-600">Pettitemucos</span>. Dibuat dengan ❤️ untuk UKK.
+                &copy; {{ date('Y') }} <span class="font-semibold text-pink-600">Pettitemucos</span>. All rights reserved.
             </p>
             <div class="flex gap-6 text-sm text-gray-500">
                 <a href="#" class="hover:text-pink-600 transition-colors">Privacy Policy</a>

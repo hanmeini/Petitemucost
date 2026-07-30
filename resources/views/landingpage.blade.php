@@ -564,12 +564,18 @@
                 </div>
             @else
                 {{-- State Kosong Jika Belum Ada Event --}}
-                <div class="text-center py-12 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <div class="text-center py-16 px-6 bg-pink-50 rounded-3xl border border-pink-100 shadow-inner">
+                    <svg class="mx-auto h-16 w-16 text-pink-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900">Belum ada jadwal event</h3>
-                    <p class="mt-1 text-sm text-gray-500">Pantau terus untuk update event cosplay selanjutnya!</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Belum ada event terdekat?</h3>
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl mx-auto">Booking private photoshoot atau jadwal event-mu sekarang agar tidak kehabisan slot!</p>
+                    <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 bg-pink-600 text-white font-bold px-8 py-4 rounded-full hover:bg-pink-700 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                        Booking Sekarang
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
                 </div>
             @endif
 

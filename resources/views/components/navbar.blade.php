@@ -85,12 +85,9 @@
                     </x-dropdown>
                 @else
                     <div class="space-x-4">
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-pink-600 transition-colors font-medium">Log in</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-pink-600 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest hover:bg-pink-700 active:bg-pink-900 focus:outline-none focus:border-pink-900 focus:ring ring-pink-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                Register
-                            </a>
-                        @endif
+                        <a href="{{ route('services.index') }}" class="inline-flex items-center px-6 py-2 bg-pink-600 border border-transparent rounded-full font-bold text-sm text-white tracking-widest hover:bg-pink-700 active:bg-pink-900 focus:outline-none focus:border-pink-900 focus:ring ring-pink-300 disabled:opacity-25 transition ease-in-out duration-150 shadow-md">
+                            Booking Sekarang
+                        </a>
                     </div>
                 @endauth
             </div>
@@ -228,14 +225,9 @@
                 </form>
             @else
                 <div class="space-y-3">
-                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-3 bg-gray-50 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-100">
-                        Log in
+                    <a href="{{ route('services.index') }}" class="block w-full text-center px-4 py-3 bg-pink-600 text-white rounded-xl font-bold text-sm hover:bg-pink-700 tracking-wider shadow-md">
+                        Booking Sekarang
                     </a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="block w-full text-center px-4 py-3 bg-pink-600 text-white rounded-xl font-semibold text-sm hover:bg-pink-700">
-                            Register
-                        </a>
-                    @endif
                 </div>
             @endauth
         </div>
