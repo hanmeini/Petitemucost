@@ -33,6 +33,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- AOS Animation CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     </head>
     <body class="font-sans antialiased bg-gray-100">
         <div class="flex flex-col min-h-screen">
@@ -43,5 +46,16 @@
             <x-footer />
 
         </div>
+
+        <!-- AOS Animation Script -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                once: true, // whether animation should happen only once - while scrolling down
+                duration: 800, // values from 0 to 3000, with step 50ms
+                easing: 'ease-out-cubic', // default easing for AOS animations
+                offset: 50, // offset (in px) from the original trigger point
+            });
+        </script>
     </body>
 </html>

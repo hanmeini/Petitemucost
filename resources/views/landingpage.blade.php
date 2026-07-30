@@ -98,7 +98,7 @@
                         Professional MUA Semarang
                     </span>
 
-                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-tight mb-6">
+                    <h1 data-aos="fade-up" class="text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-tight mb-6">
                         Wujudkan <br class="hidden lg:block">
                         <span class="relative inline-block">
                             <span class="relative z-10">Karakter Impianmu</span>
@@ -107,11 +107,11 @@
                         </span>
                     </h1>
 
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    <p data-aos="fade-up" data-aos-delay="100" class="text-lg text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
                         Spesialis makeup <strong>Cosplay</strong> dan <strong>Douyin</strong> yang mengubah imajinasi menjadi kenyataan. Hasil detail, tahan lama, dan siap memukau di setiap *event* besarmu.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <a href="{{ route('services.index') }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-pink-600 transition-all duration-300 transform hover:-translate-y-1 shadow-xl hover:shadow-pink-500/20">
                             <span>Lihat Jadwal & Layanan</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -142,7 +142,7 @@
                 </div>
 
             {{-- KANAN: Gambar Utama & Dekorasi --}}
-            <div class="relative order-1 lg:order-2 flex justify-center lg:justify-end">
+            <div data-aos="zoom-in" data-aos-delay="300" class="relative order-1 lg:order-2 flex justify-center lg:justify-end">
                 <div class="absolute inset-0 -m-8 bg-gradient-to-tr from-pink-500/30 to-purple-600/30 rounded-[3rem] blur-3xl -z-10"></div>
                 <div class="relative z-10">
                     <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-3/4 text-[18rem] lg:text-[25rem] font-black text-white z-0 select-none pointer-events-none" aria-hidden="true" style="font-family: 'Noto Serif SC', serif;">
@@ -170,7 +170,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {{-- Kiri: Kartu-kartu Visual --}}
-            <div class="relative">
+            <div data-aos="fade-right" class="relative">
                 {{-- Dekorasi Garis Bergelombang (SVG) --}}
                 <svg class="absolute -bottom-10 -left-10 w-48 h-auto text-gray-500/30 z-0" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 30C20 10 40 10 55 30S95 50 110 30 150 10 165 30 195 50 195 30" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -229,7 +229,7 @@
                     </div>
 
                     {{-- Kanan: Teks Penjelasan --}}
-                    <div class="space-y-8">
+                    <div data-aos="fade-left" class="space-y-8">
                         <div class="flex items-start gap-4">
                             <span class="font-bold text-2xl mt-1 text-pink-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -279,7 +279,7 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] -z-10"></div>
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="relative order-2 lg:order-2">
+                <div data-aos="fade-up" class="relative order-2 lg:order-2">
                     {{-- Dekorasi di belakang grid --}}
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-pink-500/5 to-purple-500/5 rounded-full blur-3xl -z-10"></div>
 
