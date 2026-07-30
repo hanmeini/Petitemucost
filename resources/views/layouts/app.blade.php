@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Pettitemucos') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
