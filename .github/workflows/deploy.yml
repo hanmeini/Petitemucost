@@ -21,7 +21,7 @@ jobs:
             cd /www/wwwroot/petitemucost.hanmeini.my.id
             
             # Ambil alih kepemilikan agar CI/CD bisa jalan
-            sudo chown -R $USER:$USER .
+            sudo chown -R $(whoami):$(whoami) .
             
             git config --global --add safe.directory /www/wwwroot/petitemucost.hanmeini.my.id
             git pull origin ${{ github.ref_name }}
