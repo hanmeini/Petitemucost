@@ -19,6 +19,10 @@ jobs:
           script: |
             export PATH=$PATH:/usr/local/bin:~/.nvm/versions/node/$(ls ~/.nvm/versions/node 2>/dev/null | tail -n 1)/bin
             cd /www/wwwroot/petitemucost.hanmeini.my.id
+            
+            # Ambil alih kepemilikan agar CI/CD bisa jalan
+            sudo chown -R $USER:$USER .
+            
             git config --global --add safe.directory /www/wwwroot/petitemucost.hanmeini.my.id
             git pull origin ${{ github.ref_name }}
             composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -29,3 +33,6 @@ jobs:
             php artisan view:cache
             npm install
             npm run build
+            
+            # Kembalikan kepemilikan ke web server agar web tidak error 500
+            sudo chown -R www:www .
